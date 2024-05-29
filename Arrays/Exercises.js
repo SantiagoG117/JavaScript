@@ -74,6 +74,10 @@ function move(array, index, offset){
 */
 
 function countOccurrences(array, searchElement){
+    if(!Array.isArray(array))
+        throw new Error('Please enter an array as the first argument');
+    
+
     /* 
     ?   Reduce executes an arrow callback function on each element of the array, passing in 
     ?    the return value from the calculation on the preceding element to the next one.
@@ -95,7 +99,15 @@ function countOccurrences(array, searchElement){
                 return accumulator + occurrance;
 
             }, 0); //*Initial value of accummulator
+};
+try {
+    const numbers = [1,2,3,4,5,1];
+    const count = countOccurrences(null, 1);        
+    console.log(count);
+} catch (error) {
+    alert(error);
 }
+
 
 /* 
     * Create a function to get all the movies in 2003 with a raiting greater than 8
@@ -133,7 +145,7 @@ function movieFilter(movies){
 
 const bestMovies = movieFilter(movies);
 
-console.log(bestMovies)
+
 
 
 
