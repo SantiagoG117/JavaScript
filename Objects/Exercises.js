@@ -71,4 +71,78 @@ let priceRanges = [
 ];
 
 
+/*  Stopwatch:
+*   Properties:
+*       duration -> Initial value should be 0
+*   Methods:
+*       1. Reset
+*           Takes the stop watch to its initial state
+*       2. Start
+*           Validation: Throw an error if we call the start method twice.
+*           Counts the number of seconds elapsed after the start method was called.
+*       3. Stop
+*           Validation: Throw an error if we call the stop method twice.
+*           Stops the count
+*   
+
+
+*/
+
+function StopWatch(){
+    //Private attributes
+    let duration = 0;
+    let intervalId;
+    let running = false;
+
+    //Public methods
+    this.start = function() {
+        if(running)
+            throw new Error('Stopwatch has already started.');     
+        
+        intervalId = setInterval(trackSeconds, 1000);
+        running = true;
+    };
+
+    this.stop = function() {
+        if(!running)
+            throw new Error('Stopwatch is not started');
+            
+        clearInterval(intervalId);
+        running = false;
+    };
+
+    this.reset = function() {
+        duration = 0;
+        clearInterval(intervalId);
+    };
+
+    // Private methods"
+    let trackSeconds = function(){
+        duration++;
+    };
+
+    //Getters:
+    Object.defineProperty(
+        this, //Object we want to add a new property to
+        'duration', //Name of the property
+        //*Object for the getter
+        {
+            get: function(){
+                return duration;
+            }
+        }
+    )
+}
+
+
+/* 
+const stopwatch = new StopWatch();
+console.log(stopwatch.duration)
+stopwatch.start();
+stopwatch.stop();
+console.log(stopwatch.duration); */
+
+
+
+
 
