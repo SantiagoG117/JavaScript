@@ -1,7 +1,6 @@
 /* 
 *   Primitive types
-*       Primitive types reference their values. Variables holding primitive values have a direct
-*       reference to their values.
+*       Variables holding primitive values have a direct reference to their values.
 */
 
 let x = 10; // x-> 10

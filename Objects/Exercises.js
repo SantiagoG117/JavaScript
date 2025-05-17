@@ -1,12 +1,11 @@
 /*  Object's properties:
-* Write a function that takes an object and displays all its properties along with their 
-* value.
-*/
+ * Write a function that takes an object and displays all its properties along with their
+ * value.
+ */
 
-function showObject(object){
-    for(let key in object)
-        console.log(object[key])
-};
+function showObject(object) {
+  for (let key in object) console.log(object[key]);
+}
 
 /* Equality functions
 *   Create two functions:
@@ -17,132 +16,120 @@ function showObject(object){
 *       areSame(): Verify if two objects are pointing to the same object.
 */
 
-function areSame(object1, object2){
-    return object1.propertyA === object2.propertyA
+//Check that both objects have the same properties
+function areEqual(address1, address2) {
+  for (let key in address1) {
+    if (address1[key] !== address2[key]) return false;
+  }
+  return true;
 }
 
-function areEqual(object1, object2){
-    return object1 === object2;
-};
+//Verify if both address are pointing to the exact same object in memory
+function areSame(address1, address2) {
+  return address1 === address2;
+}
 
 /* Object literal syntax:
-* Use the object literal syntax to create and initialize a Blog Post Object
-*/
+ * Use the object literal syntax to create and initialize a Blog Post Object
+ */
 
 let post = {
-    title: 'a',
-    body: 'b',
-    author: 'c',
-    views: 10,
-    //Since we may have multiple comments, we can create an array of comments
-    comments: [
-        {author: 'a', body: 'b'},
-        {author: 'c', body: 'd'}
-    ],
+  title: "a",
+  body: "b",
+  author: "c",
+  views: 10,
+  //Since we may have multiple comments, we can create an array of comments
+  comments: [
+    { author: "a", body: "b" },
+    { author: "c", body: "d" },
+  ],
 
-    isLive: true
+  isLive: true,
 };
 
 /* Constructor functions:
-* Build a constructor function for a blogging engine that creates objects for posts that
-* haven't been published yet
-*/
+ * Build a constructor function for a blogging engine that creates objects for posts that
+ * haven't been published yet
+ */
 
-function PostConstructor(title, body, author){
-    this.title = title,
-    this.body = body,
-    this.author = author,
+function PostConstructor(title, body, author) {
+  (this.title = title),
+    (this.body = body),
+    (this.author = author),
     //A new post object has 0 views
-    this.views = 0,
-    //A new post object won't have any comments 
-    this.comments = [],
+    (this.views = 0),
+    //A new post object won't have any comments
+    (this.comments = []),
     //The new post is not published yet
-    this.isLive = false
+    (this.isLive = false);
 }
 
 /* Array of objects
-*   Create an array of price ranges
-*/
+ *   Create an array of price ranges
+ */
 
 let priceRanges = [
-    {label: '$', tooltip: 'Inexpensive', minPerPerson: 0, maxPerPerson: 10},
-    {label: '$$', tooltip: 'Moderate', minPerPerson: 11, maxPerPerson: 20},
-    {label: '$$$', tooltip: 'Expensive', minPerPerson:21 , maxPerPerson: 30}
+  { label: "$", tooltip: "Inexpensive", minPerPerson: 0, maxPerPerson: 10 },
+  { label: "$$", tooltip: "Moderate", minPerPerson: 11, maxPerPerson: 20 },
+  { label: "$$$", tooltip: "Expensive", minPerPerson: 21, maxPerPerson: 30 },
 ];
 
-
 /*  Stopwatch:
-*   Properties:
-*       duration -> Initial value should be 0
-*   Methods:
-*       1. Reset
-*           Takes the stop watch to its initial state
-*       2. Start
-*           Validation: Throw an error if we call the start method twice.
-*           Counts the number of seconds elapsed after the start method was called.
-*       3. Stop
-*           Validation: Throw an error if we call the stop method twice.
-*           Stops the count
-*   
+ *   Properties:
+ *       duration -> Initial value should be 0
+ *   Methods:
+ *       1. Reset
+ *           Takes the stop watch to its initial state
+ *       2. Start
+ *           Validation: Throw an error if we call the start method twice.
+ *           Counts the number of seconds elapsed after the start method was called.
+ *       3. Stop
+ *           Validation: Throw an error if we call the stop method twice.
+ *           Stops the count
+ *
+ */
 
+function StopWatch() {
+  //Attributes
+  let duration = 0;
+  let isRunning = false;
+  let startTime;
+  let endTime;
 
-*/
+  //Properties
+  Object.defineProperty(this, "duration", {
+    get: function () {
+      return duration;
+    },
+  });
 
-function StopWatch(){
-    //Private attributes
-    let duration = 0;
-    let intervalId;
-    let running = false;
+  //Methods
+  this.start = function () {
+    if (isRunning) throw new Error("Stopwatch has already started");
 
-    //Public methods
-    this.start = function() {
-        if(running)
-            throw new Error('Stopwatch has already started.');     
-        
-        intervalId = setInterval(trackSeconds, 1000);
-        running = true;
-    };
+    isRunning = !isRunning;
+    startTime = new Date();
+    console.log("Stopwatch is running");
+  };
 
-    this.stop = function() {
-        if(!running)
-            throw new Error('Stopwatch is not started');
-            
-        clearInterval(intervalId);
-        running = false;
-    };
+  this.stop = function () {
+    if (!isRunning) throw new Error("Stopwatch is not started");
+    endTime = new Date();
+    duration = (endTime.getTime() - startTime.getTime()) / 1000; //getTime() returns the number of milliseconds
+    isRunning = !isRunning;
+    console.log(`Stopwatch stopped. Duration: ${duration}`);
+  };
 
-    this.reset = function() {
-        duration = 0;
-        clearInterval(intervalId);
-    };
+  this.reset = function () {
+    duration = 0;
+    isRunning = false;
+    startTime = null;
+    endTime = null;
 
-    // Private methods"
-    let trackSeconds = function(){
-        duration++;
-    };
-
-    //Getters:
-    Object.defineProperty(
-        this, //Object we want to add a new property to
-        'duration', //Name of the property
-        //*Object for the getter
-        {
-            get: function(){
-                return duration;
-            }
-        }
-    )
+    console.log(`
+      Stopwatch was reset
+      Duration: ${duration}
+      isRunning: ${isRunning}
+      `);
+  };
 }
-
-
-/* 
-const stopwatch = new StopWatch();
-console.log(stopwatch.duration)
-stopwatch.start();
-stopwatch.stop();
-console.log(stopwatch.duration); */
-
-
-
-
-
