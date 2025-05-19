@@ -1,5 +1,7 @@
 /* 
 *   Polymorhism: 
+    We can define a method in the Prototype object and implement different implementations of the same method
+    in each of the objects inherit from the prototype
 */
 
 //? Intermidiate Function Inheritance: A function for creating a inheritance relationship between two objects

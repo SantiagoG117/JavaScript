@@ -1,4 +1,11 @@
- 
+/* 
+    ? Composition:
+    Favor composition over inheritance. 
+    With composition, instead of having multi-level inheritance hierarchies we can compose a few objects together to create a new Object. 
+    This is a more flexible and simple approach for code reusability
+*/ 
+
+
 //*   Composition (Mixin) function: Copy the properties and methods from one or more objects to the target object ; 
 function mixin(target, ...sourceObjects){
     Object.assign(target.prototype, ...sourceObjects);

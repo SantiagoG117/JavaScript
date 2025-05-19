@@ -3,9 +3,10 @@
 *   Shape class.
 */
 
-//? Intermidiate Function Inheritance: A function for creating a inheritance relationship between two objects
+//? Intermidiate Function Inheritance: A function for creating a inheritance ('is a') relationship between two objects
 function inherit(Child, Parent){
     Child.prototype = Object.create(Parent.prototype);
+
     //Reset the constructor function from the Parent object back to the Child object (best practice)
     Child.prototype.constructor = Child;
 }
@@ -29,7 +30,6 @@ function Circle(radius, color){
 
 //* Inheritance between Circle and Shape 
 inherit(Circle, Shape);
-
 
 
 function Square(size, color){
